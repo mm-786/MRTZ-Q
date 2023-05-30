@@ -105,14 +105,14 @@
 
         <div style="text-align: right;">
           <!-- <span style="margin-right: 25px;"><b>Quote Id- </b>{{qoute.key}}</span> -->
-          <q-badge color="blue-grey-9" floating>{{i*10 +
-            ii+1}}</q-badge>
+          <q-badge color="blue-grey-9" floating>#{{i*10 +
+            ii+1}}<span style="opacity: 0.5;">/{{totl}}</span></q-badge>
           <!-- <span
             style="color:rgb(72, 53, 53); float: left; font-weight: bold; margin-left: 10px; margin-top: 0px;">{{i*10 +
             ii+1}}</span> -->
           <br />
         </div>
-        <q-card-section style="margin: 0px; margin-top: 10px; padding: 0px;">
+        <q-card-section class="" style="margin: 0px; margin-top: 10px; padding: 0px;">
 
 
           <div class="box" v-html="qoute.quote">
@@ -127,7 +127,7 @@
           <q-icon v-else @click="saveQuote(0,qoute.key)" style="margin-left: 10px; font-size: x-large;"
             name="turned_in_not" />
 
-         <span style="font-weight: 200;"><b>ID-</b>{{qoute.key/1000}}</span>
+         <!-- <span style="font-weight: 200;"><b>#</b>{{qoute.key/1000*9999}}</span> -->
 
           <span
           style="font-weight: bold; float: right; font-size: small; margin-right: 10px;">{{timeFromNow(qoute.date)}}</span>
@@ -242,13 +242,13 @@
         };
 
 
-        axios.request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        // axios.request(config)
+        //   .then((response) => {
+        //     console.log(JSON.stringify(response.data));
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
 
 
       }
@@ -349,13 +349,13 @@
           data: data
         };
 
-        axios.request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        // axios.request(config)
+        //   .then((response) => {
+        //     console.log(JSON.stringify(response.data));
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
 
 
         this.wishIndex += 1;
@@ -402,6 +402,7 @@
       axios.request(config)
         .then((response) => {
           // console.log(JSON.stringify(response.data));
+          this.startTime = new Date().toLocaleString("en-Us", { timeZone: 'Asia/Kolkata' });
           this.quotes = response.data;
           this.quotes.items = this.quotes.items.reverse();
           this.$store.commit('quotes', this.quotes.items);
@@ -453,7 +454,10 @@
     text-align: justify;
     letter-spacing: 1px;
     background-color: rgba(84, 83, 78, 0.2);
+    
   }
+
+
 
   .cards-new {
     border: 2px solid rgb(255, 224, 87);
@@ -506,7 +510,8 @@
 
   .bb {
     background-image: url("../../public/b.png");
-    background-size: contain;
+    /* background-size: contain; */
+    background-size: cover;
   }
 
 
