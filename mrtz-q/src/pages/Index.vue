@@ -2,7 +2,8 @@
   <q-page class="bb bba" style="background-color: rgba(247, 223, 118,0.1); height: 100%;">
     <div class="q-pa-lg flex flex-center" style="display: flex; justify-content: space-between;">
       <q-chip v-if="!au" round>
-        <q-avatar style="background-color: #f76060; font-weight: bold;" text-color="white">{{diff.length}}
+        <q-avatar @dblclick="currPage = 1" style="background-color: #f76060; font-weight: bold;" text-color="white">
+          {{diff.length}}
         </q-avatar>
         New Quotes
       </q-chip>
@@ -34,6 +35,9 @@
         </span>
       </div>
     </div>
+
+   
+
     <!-- Saved start -->
     <div class="q-pa-md row items-start q-gutter-md" style="padding-bottom: 65px;" :key="i" v-show="currPage==-1">
       <q-card class="my-card cards" v-for="qoute in quotes.items" :key="qoute.key" v-show="quotesLike[qoute.key]">
@@ -120,17 +124,17 @@
 
         </q-card-section>
         <div style="display: flex; justify-content: space-between;">
-        
+
 
           <q-icon v-if="quotesLike[qoute.key]" @click="saveQuote(1,qoute.key)"
             style="margin-left: 10px; font-size: x-large;" name="turned_in" />
           <q-icon v-else @click="saveQuote(0,qoute.key)" style="margin-left: 10px; font-size: x-large;"
             name="turned_in_not" />
 
-         <!-- <span style="font-weight: 200;"><b>#</b>{{qoute.key/1000*9999}}</span> -->
+          <!-- <span style="font-weight: 200;"><b>#</b>{{qoute.key/1000*9999}}</span> -->
 
           <span
-          style="font-weight: bold; float: right; font-size: small; margin-right: 10px;">{{timeFromNow(qoute.date)}}</span>
+            style="font-weight: bold; float: right; font-size: small; margin-right: 10px;">{{timeFromNow(qoute.date)}}</span>
         </div>
       </q-card>
 
@@ -140,15 +144,44 @@
       <!-- <img src="../../public/my.jpg" style="width: 15%; border-radius: 50%; border: 5px solid rgba(250, 240, 230, 1); opacity: 1; left:37.5%; margin-top: -5%; z-index: 2; position: absolute;" width="100px"/>  -->
       <q-card class="my-card cards2">
         <q-card-section class="cc" style="margin: 0px; padding: 0px;">
-          <p>
+          <div class="q-pa-md" style="float: right;">
+            <q-btn-dropdown color="primary" label="Language">
+              <q-list>
+                <q-item clickable v-close-popup @click="lang='e'; visitedPage.push('e')">
+                  <q-item-section>
+                    <q-item-label>English</q-item-label>
+                  </q-item-section>
+                </q-item>
+        
+                <q-item clickable v-close-popup @click="lang='g'; visitedPage.push('g')">
+                  <q-item-section>
+                    <q-item-label>Gujarati</q-item-label>
+                  </q-item-section>
+                </q-item>
+        
+                <q-item clickable v-close-popup @click="lang='h'; visitedPage.push('h')">
+                  <q-item-section>
+                    <q-item-label>Hindi</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-btn-dropdown>
+          </div>
+          <br>
+          <br>
+          <br>
+
+          <p v-if="lang=='e'">
             Hola..!
             <br><br>
             I'm a guy from the dry region of the state of Gujarat, which is well-known by the name of Kachchh. I am
             currently living in the capital town of Kachchh. <br><br>
             I enjoy reading Shayari from well-known poets such as Mirza Ghalib, Meer Taqi Meer, Allama Iqbal, Nida
-            Fazli, Ahmad Faraz, and many more from Urdu literature. I also enjoy reading works by Mareez, Befam, Saif
+            Fazli, Ahmad Faraz, and many more from Urdu literature. I also enjoy reading works by Mareez, Befam,
+            Saif
             Palanpuri, Khalil Dhantejvi, and many more from Gujarati literature. <br><br>
-            In my daily life, I read many quotes and lines that express gentle and sarcastic thoughts of personalities.
+            In my daily life, I read many quotes and lines that express gentle and sarcastic thoughts of
+            personalities.
             I am inspired by
             these quotes and lines, and I wish to express my thoughts in a similarly gentle and sarcastic form. My
             thoughts are based on incidents I have faced, personalities i have met, and things i have read.<br><br>
@@ -159,6 +192,46 @@
 
 
             <!-- <span>You can send you quotes to post on our site through email <b><a>your-quotes@mrtz.in</a></b></span> -->
+          </p>
+
+          <p v-else-if="lang=='g'">
+            હેલો..!<br><br>
+
+            હું ગુજરાત રાજ્યના સૂકા પ્રદેશનો એક વ્યક્તિ છું, જે કચ્છના નામથી જાણીતો છે. હું હાલમાં કચ્છના પાટનગર શહેરમાં
+            રહું છું.<br><br>
+
+            મને મિર્ઝા ગાલિબ, મીર તકી મીર, અલ્લામા ઈકબાલ, નિદા ફાઝલી, અહમદ ફરાઝ અને ઉર્દૂ સાહિત્યના ઘણા જાણીતા કવિઓની
+            શાયરી વાંચવાની મજા આવે છે. મને ગુજરાતી સાહિત્યમાંથી મારીઝ, બેફામ, સૈફ પાલનપુરી, ખલીલ ધનતેજવી અને બીજા ઘણાની
+            રચનાઓ વાંચવાની પણ મજા આવે છે.<br><br>
+
+            મારા રોજિંદા જીવનમાં, હું ઘણા અવતરણો અને રેખાઓ વાંચું છું જે વ્યક્તિત્વના સૌમ્ય અને વ્યંગાત્મક વિચારોને
+            વ્યક્ત કરે છે. હું આ અવતરણો અને પંક્તિઓથી પ્રેરિત છું, અને હું મારા વિચારોને એવા જ સૌમ્ય અને વ્યંગાત્મક
+            સ્વરૂપમાં વ્યક્ત કરવા ઈચ્છું છું. મારા વિચારો મેં અનુભવેલી ઘટનાઓ, મને મળેલી વ્યક્તિત્વો અને મેં વાંચેલી
+            વસ્તુઓ પર આધારિત છે.<br><br>
+
+            મારા વિશે હમણાં પૂરતું છે! 😉<br><br><br>
+          </p>
+
+          <p v-else-if="lang=='h'">
+            नमस्ते..!<br><br>
+
+            मैं गुजरात राज्य के सूखे इलाके का आदमी हूं, जो कच्छ के नाम से मशहूर है। मैं वर्तमान में राजधानी शहर कच्छ में
+            रह रहा हूं।<br><br>
+
+            मुझे मिर्ज़ा ग़ालिब, मीर तकी मीर, अल्लामा इकबाल, निदा फ़ाज़ली, अहमद फ़राज़ और उर्दू साहित्य के कई अन्य
+            प्रसिद्ध कवियों की शायरी पढ़ने में मज़ा आता है। मुझे मरीज़, बेफाम, सैफ पालनपुरी, खलील धनतेजवी, और गुजराती
+            साहित्य से कई अन्य लोगों के कार्यों को पढ़ने में भी आनंद आता है।<br><br>
+
+            अपने दैनिक जीवन में, मैं कई उद्धरण और पंक्तियाँ पढ़ता हूँ जो व्यक्तित्वों के कोमल और व्यंग्यात्मक विचारों को
+            व्यक्त करते हैं। मैं इन उद्धरणों और पंक्तियों से प्रेरित हूं, और मैं अपने विचारों को उसी तरह कोमल और
+            व्यंग्यात्मक रूप में व्यक्त करना चाहता हूं। मेरे विचार उन घटनाओं पर आधारित हैं जिनका मैंने सामना किया है,
+            जिन व्यक्तियों से मैं मिला हूं, और जिन चीजों को मैंने पढ़ा है।<br><br>
+
+            अभी के लिए मेरे लिए इतना ही काफी है! 😉<br><br><br>
+          </p>
+          <p v-else style="text-align:center;">
+          <br>
+            Select language<br><br>ભાષા પસંદ કરો<br><br>भाषा चुने
           </p>
         </q-card-section>
       </q-card>
@@ -174,7 +247,8 @@
       <div class="" style="display: flex; justify-content: space-between; padding: 10px;">
 
         <q-chip square style="background-color: rgb(178, 178, 178); color: black; font-size: medium;">
-          <q-avatar style="background-color:#000; color: rgb(81, 80, 86); font-weight: bold;" text-color="white">
+          <q-avatar @dblclick="currPage = allQuotes.length"
+            style="background-color:#000; color: rgb(81, 80, 86); font-weight: bold;" text-color="white">
             {{allQuotes.length}}
           </q-avatar>
           Total Page
@@ -216,6 +290,7 @@
         totl: 0,
         au: 0,
         c: 0,
+        lang:'',
         likeKey: 'xxx',
         apiKey: new Date(),
         wish: ['Hello', 'नमस्कार', 'لسَّلَامُ عَلَيْكُمْ', 'નમસ્તે', 'आदाब', 'Khamma Gani'],
@@ -242,13 +317,13 @@
         };
 
 
-        // axios.request(config)
-        //   .then((response) => {
-        //     console.log(JSON.stringify(response.data));
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
+        axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
 
       }
@@ -349,13 +424,13 @@
           data: data
         };
 
-        // axios.request(config)
-        //   .then((response) => {
-        //     console.log(JSON.stringify(response.data));
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
+        axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
 
         this.wishIndex += 1;
@@ -454,7 +529,7 @@
     text-align: justify;
     letter-spacing: 1px;
     background-color: rgba(84, 83, 78, 0.2);
-    
+
   }
 
 
